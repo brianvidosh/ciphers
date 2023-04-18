@@ -1,1 +1,53 @@
 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256
+
+
+
+// the loader html
+var sweet_loader = '<div class="sweet_loader"><svg viewBox="0 0 140 140" width="140" height="140"><g class="outline"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="rgba(0,0,0,0.1)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g><g class="circle"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="#71BBFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dashoffset="200" stroke-dasharray="300"></path></g></svg></div>';
+
+$.ajax({
+    type: 'POST',
+    url:  myurl,
+    data: str,
+    // here
+    beforeSend: function() {
+        swal.fire({
+            html: '<h5>Loading...</h5>',
+            showConfirmButton: false,
+            onRender: function() {
+                 // there will only ever be one sweet alert open.
+                 $('.swal2-content').prepend(sweet_loader);
+            }
+        });
+    },
+    success: function(json) {
+        try {
+            json = JSON.parse(json);
+        }
+        catch(error) {
+            swal.fire({
+                icon: 'error',
+                html: '<h5>Error!</h5>'
+            });
+            return false;
+        }
+        if(json.success) {
+            swal.fire({
+                icon: 'success',
+                html: '<h5>Success!</h5>'
+            });
+        } else {
+            swal.fire({
+                icon: 'error',
+                html: '<h5>Error!</h5>'
+            });
+        }
+    },
+    error: function() {
+        swal.fire({
+            icon: 'error',
+            html: '<h5>Error!</h5>'
+        });
+        return false;
+    }
+});

@@ -35,3 +35,22 @@ function OpenConnection()
             echo("Error!");
         }
     }
+
+$soap_params = array('exception'=>1,'cache_wsdl'=>WSDL_CACHE_NONE,'trace'=>1);
+
+//Generate Request payload to be passed to the IPRS Endpoint
+$request = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:GetDataByIdCard> 
+         <tem:log>'.WS_USERNAME.'</tem:log>
+         <tem:pass>'.WS_PASSWORD.'</tem:pass>
+         <tem:id_number>'.$idnumber.'</tem:id_number>
+         <tem:serial_number></tem:serial_number>
+      </tem:GetDataByIdCard>
+   </soapenv:Body>
+</soapenv:Envelope>';
+
+//Create an instance of the SoapClient class to pass the Request 
+$soapClient      = new MySoapClient("< WSDL_URL >", $soap_params);
+$PostTransaction = $soapClient->GetDataByIdCard($request,'http://tempuri.org/IServiceIPRS/GetDataByIdCard');

@@ -91,3 +91,18 @@ $PostTransaction = $soapClient->GetDataByIdCard($request,'http://tempuri.org/ISe
 </s:Envelope>
 
 </xml>
+
+
+with n as (select n from (values(0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) t(n))
+, dates as (
+select top (datediff(day, '2023-08-06', dateadd(month, datediff(month, 0, '2023-08-06' )+1, 0))) 
+[DateValue]=convert(date,dateadd(day,row_number() over(order by (select 1))-1,'2023-08-06'))
+from n as deka cross join n as hecto
+)
+select 
+WeekOfMonth = row_number() over (order by datepart(week,DateValue))
+, Week        = datepart(week,DateValue)
+, WeekStart   = min(DateValue)
+, WeekEnd     = max(DateValue)
+from dates
+group by datepart(week,DateValue)

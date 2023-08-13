@@ -220,3 +220,86 @@ License: You must have a valid license purchased only from themeforest(the above
 
 	<!-- end::Body -->
 </html>
+
+ Select SSSSS.WeekOfMonth
+,SSSSS.WeekOfYear
+,SSSSS.WeekStart
+,SSSSS.WeekEnd
+,SSSSS.YearStartDate
+,SSSSS.YearEndDate
+,SSSSS.agent_id
+,SSSSS.premium
+,SSSSS.deal_exists
+,SSSSS.AgentName
+,SSSSS.AnnualTarget
+,SSSSS.ManagerAnnualTarget
+FROM
+(
+SELECT
+SSSS.WeekOfMonth
+,SSSS.WeekOfYear
+,SSSS.WeekStart
+,SSSS.WeekEnd
+,SSSS.YearStartDate
+,SSSS.YearEndDate
+,SSSS.agent_id
+,SSSS.premium
+,SSSS.deal_exists
+,SSSS.AgentName
+,ISNULL((SELECT td.target_value FROM target_detail td WHERE SSSS.agent_id = td.user_id AND YEAR(td.created_at) = YEAR(SSSS.YearStartDate)
+AND ISNULL(td.is_manager,0) = 0),0) AS AnnualTarget
+,ISNULL((SELECT td.target_value FROM target_detail td WHERE SSSS.agent_id = td.user_id AND YEAR(td.created_at) = YEAR(SSSS.YearStartDate)
+AND ISNULL(td.is_manager,0) = 1),0) AS ManagerAnnualTarget
+FROM
+(
+SELECT
+SSS.WeekOfMonth
+,SSS.WeekOfYear
+,SSS.WeekStart
+,SSS.WeekEnd
+,DATEFROMPARTS(YEAR(SSS.WeekEnd),1,1) AS YearStartDate
+,DATEFROMPARTS(YEAR(SSS.WeekEnd),12,31) AS YearEndDate
+,SSS.agent_id
+,SSS.premium
+,SSS.deal_exists
+,ISNULL(u.name,'') AS AgentName
+FROM
+(
+	SELECT
+	SS.WeekOfMonth
+	,SS.WeekOfYear
+	,SS.WeekStart
+	,SS.WeekEnd
+	,d.created_by as agent_id
+	,ISNULL(d.amount_proposed,0) AS premium
+	,1 AS deal_exists
+	FROM
+	(
+	  SELECT S.WeekOfMonth
+	  ,S.[Week] AS WeekOfYear
+	  ,S.WeekStart
+	  ,S.WeekEnd
+	  FROM weekswithinmonth('2023-07-01') S 
+	) SS
+	JOIN deals d ON d.closed_date BETWEEN SS.WeekStart AND SS.WeekEnd AND d.deal_stage_id = '5' and d.created_by=20041
+) SSS
+LEFT JOIN users u ON SSS.agent_id = u.id
+) SSSS
+) SSSSS
+UNION ALL 
+SELECT *
+FROM weekswithinmonth('2023-07-01') S WHERE S.WeekStart NOT IN 
+(
+	SELECT
+	SS.WeekStart
+	FROM
+	(
+	  SELECT S.WeekOfMonth
+	  ,S.[Week] AS WeekOfYear
+	  ,S.WeekStart
+	  ,S.WeekEnd
+	  FROM weekswithinmonth('2023-07-01') S 
+	) SS
+	JOIN deals d ON d.closed_date BETWEEN SS.WeekStart AND SS.WeekEnd AND d.deal_stage_id = '5' and d.created_by=20041
+)
+ORDER BY SSSSS.AgentName

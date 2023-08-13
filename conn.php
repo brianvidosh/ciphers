@@ -106,3 +106,46 @@ WeekOfMonth = row_number() over (order by datepart(week,DateValue))
 , WeekEnd     = max(DateValue)
 from dates
 group by datepart(week,DateValue)
+
+
+USE [agent_portal]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[weekswithinmonth]    Script Date: 8/13/2023 8:19:01 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date, ,>
+-- Description:	<Description, ,>
+-- =============================================
+CREATE FUNCTION [dbo].[weekswithinmonth]
+(
+	-- Add the parameters for the function here
+	@from_date DATE
+)
+RETURNS table
+AS RETURN
+(
+	
+	with n as (select n from (values(0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) t(n))
+	, dates as (
+	select top (datediff(day, @from_date, dateadd(month, datediff(month, 0, @from_date )+1, 0))) 
+	[DateValue]=convert(date,dateadd(day,row_number() over(order by (select 1))-1,@from_date))
+	from n as deka cross join n as hecto
+	)
+	select 
+	WeekOfMonth = row_number() over (order by datepart(week,DateValue))
+	, Week        = datepart(week,DateValue)
+	, WeekStart   = min(DateValue)
+	, WeekEnd     = max(DateValue)
+	from dates
+	group by datepart(week,DateValue)
+)
+GO
+
+

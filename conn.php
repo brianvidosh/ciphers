@@ -205,4 +205,19 @@ GO
             "Level": "Error"
           }
         ],
-
+INSERT INTO `soma` VALUES (1, 5, 18.11, 0.05, 0.03, 0.09, 0.19);
+INSERT INTO `soma` VALUES (2, 6, 14.42, 0.05, 0.03, 0.07, 0.19);
+INSERT INTO `soma` VALUES (3, 7, 11.75, 0.05, 0.03, 0.06, 0.18);
+INSERT INTO `soma` VALUES (4, 8, 9.75, 0.04, 0.03, 0.05, 0.17);
+INSERT INTO `soma` VALUES (5, 9, 8.21, 0.04, 0.03, 0.04, 0.17);
+INSERT INTO `soma` VALUES (6, 10, 6.99, 0.04, 0.03, 0.03, 0.16);
+INSERT INTO `soma` VALUES (7, 11, 5.37, 0.06, 0.05, 0.03, 0.16);
+INSERT INTO `soma` VALUES (8, 12, 4.56, 0.04, 0.03, 0.02, 0.16);
+INSERT INTO `soma` VALUES (9, 13, 3.98, 0.04, 0.03, 0.02, 0.15);
+INSERT INTO `soma` VALUES (10, 14, 3.49, 0.04, 0.03, 0.02, 0.15);
+INSERT INTO `soma` VALUES (11, 15, 3.07, 0.04, 0.03, 0.01, 0.14);
+INSERT INTO `soma` VALUES (12, 16, 2.72, 0.04, 0.04, 0.01, 0.15);
+INSERT INTO `soma` VALUES (13, 17, 2.41, 0.04, 0.03, 0.01, 0.15);
+INSERT INTO `soma` VALUES (14, 18, 2.16, 0.04, 0.03, 0.01, 0.15);
+INSERT INTO `soma` VALUES (15, 19, 1.93, 0.04, 0.03, 0.01, 0.14);
+INSERT INTO `soma` VALUES (16, 20, 1.74, 0.04, 0.03, 0.01, 0.14);

@@ -147,5 +147,62 @@ AS RETURN
 	group by datepart(week,DateValue)
 )
 GO
-
+"ValidationMessages": [
+          {
+            "GID": "EAAF9CAF-E5DB-4D34-8816-B08800B9BE71",
+            "MessageID": 60542,
+            "Message": "Contract type: Legacy Plan - For the proposer BV Vidolo the Citizenship cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "394B9B1E-2059-43A3-B04B-B08800B9BE7F",
+            "MessageID": 60542,
+            "Message": "Contract type: Legacy Plan - For the proposer BV Vidolo the Gross Income cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "01549FFD-DC5B-4842-9F81-B08800B9BE8D",
+            "MessageID": 60542,
+            "Message": "Contract type: Legacy Plan - For the proposer BV Vidolo the Address cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "1C38D567-9215-4B8C-AEEE-B08800B9BE97",
+            "MessageID": 60542,
+            "Message": "Contract type: Legacy Plan - For the proposer BV Vidolo the Source of Funds/Wealth cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "3A4CD624-355B-4B3C-9B11-B08800B9BEAA",
+            "MessageID": 60542,
+            "Message": "Contract type: Legacy Plan - For the proposer BV Vidolo the Kenya ID Number or Passport cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "87733F8A-9FBB-410C-A05A-B08800B9BED9",
+            "MessageID": 1050012,
+            "Message": "Contract type: Legacy Plan - For the commission owner GO Kiche the Address cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "ED753D88-7D53-4F13-9A8A-B08800B9BEEC",
+            "MessageID": 1050012,
+            "Message": "Contract type: Legacy Plan - For the commission owner GO Kiche the Contact Number cannot be empty.",
+            "LevelID": 3,
+            "Level": "Error"
+          },
+          {
+            "GID": "05D8BE5D-2F0B-45D6-BB56-B08800B9BEC6",
+            "MessageID": 1050013,
+            "Message": "Contract type: Legacy Plan - The proposer Vidolo must be screened and rated before the policy can be accepted",
+            "LevelID": 3,
+            "Level": "Error"
+          }
+        ],
 
